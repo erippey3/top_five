@@ -85,6 +85,19 @@
                 font-size: 0.9em;
             }
         }
+        button.delete-button {
+            padding: 5px 10px;
+            background: #ff4d4d;
+            color: #ffffff;
+            font-weight: bold;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        button.delete-button:hover {
+            background: #ff1a1a;
+        }
     </style>
 </head>
 <body>
@@ -111,6 +124,7 @@
                     <tr>
                         <th>Category</th>
                         <th>Items</th>
+                        <th>Action</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -118,6 +132,11 @@
                         <tr>
                             <td>{{ submission.category }}</td>
                             <td>{{ ", ".join(submission.five) }}</td>
+                            <td>
+                                <form action="/delete/{{ submission.id }}" method="POST" style="display:inline;">
+                                    <button type="submit" class="delete-button">Delete</button>
+                                </form>
+                            </td>
                         </tr>
                     {% endfor %}
                 </tbody>
