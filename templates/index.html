@@ -4,66 +4,127 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Top Five</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
     <style>
         body {
-            font-family: Arial, sans-serif;
+            font-family: 'Roboto', sans-serif;
+            background: linear-gradient(to right, #00b4db, #0083b0);
+            color: #333;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+        .container {
+            background: #ffffff;
+            border-radius: 12px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            max-width: 600px;
+            width: 100%;
+            padding: 2em;
             margin: 2em;
         }
+        h1, h2 {
+            text-align: center;
+            color: #0083b0;
+        }
         form {
+            display: flex;
+            flex-direction: column;
+            gap: 1em;
             margin-bottom: 2em;
+        }
+        label {
+            font-weight: bold;
+        }
+        input[type="text"] {
+            padding: 10px;
+            border: 2px solid #0083b0;
+            border-radius: 6px;
+            font-size: 1em;
+        }
+        button[type="submit"] {
+            padding: 10px;
+            background: #0083b0;
+            color: #ffffff;
+            font-weight: bold;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        button[type="submit"]:hover {
+            background: #00b4db;
         }
         table {
             width: 100%;
             border-collapse: collapse;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         }
         table, th, td {
-            border: 1px solid black;
+            border: 1px solid #dddddd;
         }
         th, td {
-            padding: 10px;
+            padding: 15px;
             text-align: left;
         }
         th {
-            background-color: #f4f4f4;
+            background-color: #00b4db;
+            color: white;
+        }
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+        @media (max-width: 600px) {
+            .container {
+                padding: 1em;
+            }
+            form, table {
+                font-size: 0.9em;
+            }
         }
     </style>
 </head>
 <body>
-    <h1>Top Five</h1>
-    <form method="POST">
-        <label for="category">Category:</label><br>
-        <input type="text" id="category" name="category" required><br><br>
+    <div class="container">
+        <h1>Top Five</h1>
+        <form method="POST">
+            <label for="category">Category:</label>
+            <input type="text" id="category" name="category" required>
 
-        <label>Items:</label><br>
-        <input type="text" name="item1" placeholder="Item 1" required><br>
-        <input type="text" name="item2" placeholder="Item 2" required><br>
-        <input type="text" name="item3" placeholder="Item 3" required><br>
-        <input type="text" name="item4" placeholder="Item 4" required><br>
-        <input type="text" name="item5" placeholder="Item 5" required><br><br>
+            <label>Items:</label>
+            <input type="text" name="item1" placeholder="Item 1" required>
+            <input type="text" name="item2" placeholder="Item 2" required>
+            <input type="text" name="item3" placeholder="Item 3" required>
+            <input type="text" name="item4" placeholder="Item 4" required>
+            <input type="text" name="item5" placeholder="Item 5" required>
 
-        <button type="submit">Submit</button>
-    </form>
+            <button type="submit">Submit</button>
+        </form>
 
-    <h2>Submissions</h2>
-    {% if submissions %}
-        <table>
-            <thead>
-                <tr>
-                    <th>Category</th>
-                    <th>Items</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for submission in submissions %}
+        <h2>Submissions</h2>
+        {% if submissions %}
+            <table>
+                <thead>
                     <tr>
-                        <td>{{ submission.category }}</td>
-                        <td>{{ ", ".join(submission.five) }}</td>
+                        <th>Category</th>
+                        <th>Items</th>
                     </tr>
-                {% endfor %}
-            </tbody>
-        </table>
-    {% else %}
-        <p>No submissions yet!</p>
-    {% endif %}
+                </thead>
+                <tbody>
+                    {% for submission in submissions %}
+                        <tr>
+                            <td>{{ submission.category }}</td>
+                            <td>{{ ", ".join(submission.five) }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% else %}
+            <p style="text-align: center;">No submissions yet!</p>
+        {% endif %}
+    </div>
 </body>
 </html>
